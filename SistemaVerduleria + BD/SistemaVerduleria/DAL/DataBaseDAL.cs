@@ -43,7 +43,7 @@ namespace DAL
             }
         }
 
-
+        
         public DataSet LecturaDatos(SqlCommand sqlCommand, String tabla)
         {
 
