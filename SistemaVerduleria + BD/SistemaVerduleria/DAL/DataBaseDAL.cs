@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +12,22 @@ namespace DAL
     {
         public SqlConnection Conexion { get; set; }
         public SqlConnection AbreConexionSQL()
-        {
-            string ser = "DESKTOP-3TAVB1D\\SQLEXPRESS";
+        {   
+            // Cambio en la variable ser por la variable Servidor
+            string server = "DESKTOP-3TAVB1D\\SQLEXPRESS";
             string database = "SistemaVerduleria";
-            string us = "sa";
-            string pw = "Welcome123*";
+            // Cambio en la variable us por la variable usuario y pw por la variable password
+            string user = "sa";
+            string password = "Welcome123*";
+            
+            // Cadena de Conexión
+            String connection = $"Data source={server}; Initial Catalog={database}; User Id={user}; Password={password}; Integrated Security=false; TrustServerCertificate=true;"; 
 
-            String con = $"Data source={ser}; Initial Catalog={database}; User Id={us}; Password={pw}; Integrated Security=false; TrustServerCertificate=true;"; 
-
+            
+            // Validacion de pruebas para comprar que la conexión funciona
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(con);
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connection);
                 builder.ConnectTimeout = 30;  // Establece el tiempo de espera de la conexión según tus necesidades
 
                 SqlConnection sqlConexion = new SqlConnection(builder.ConnectionString);
@@ -44,9 +49,10 @@ namespace DAL
         }
 
 
+        // Metodo de lectura de la base de datos en SQL y lo convierte a una tabla
         public DataSet LecturaDatos(SqlCommand sqlCommand, String tabla)
         {
-
+            // Creacion de variable DataSet
             DataSet dsTabla = new DataSet();
             try
             {
@@ -71,9 +77,10 @@ namespace DAL
         }
 
 
+        // Metodo de insercion de la base de datos en SQL
         public int InsercionDatos(SqlCommand sqlCommand)
         {
-
+            // Conteo de registros que se modificaron en la base de datos.
             int registrosafectados = 0;
             try
             {
@@ -96,6 +103,7 @@ namespace DAL
             }
         }
 
+        // Metodo de limpieza del codigo y sis recursos para finalizar la conexion
         public void Dispose()
         {
             if (Conexion != null)
