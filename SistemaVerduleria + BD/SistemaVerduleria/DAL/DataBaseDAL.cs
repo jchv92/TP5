@@ -43,7 +43,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                ex.Source += " Conexion " + con;
+                ex.Source += " Conexion " + connection;
                 throw ex;
             }
         }
